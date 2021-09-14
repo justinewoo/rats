@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<h1>Hello, World!</h1>
+<form>
+    <div class="form-group">
+        <label for="formFile">Select directory</label>
+        <input type="file" class="form-control-file" id="formFile" webkitdirectory mozdirectory msdirectory odirectory directory multiple>
+    </div>
+</form>
+{% endblock %}
