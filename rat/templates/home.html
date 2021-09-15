@@ -1,11 +1,46 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-<h1>Hello, World!</h1>
+<h1>Rat Thing</h1>
 <form>
     <div class="form-group">
-        <label for="formFile">Select directory</label>
+        <label for="formFile">Select file</label>
         <input type="file" class="form-control-file" id="formFile" webkitdirectory mozdirectory msdirectory odirectory directory multiple>
     </div>
+    <div>
+        <button type="submit" id="submit"> 
+            <a href="chooseMode"> Upload Files </a>
+        </button>
+    </div>
 </form>
+<script>
+
+    const inputElement = document.getElementById("formFile");
+    inputElement.addEventListener("change", handleFiles, false);
+    var fileList;
+
+    function handleFiles() {
+        let text = '{'
+        console.log(this.files);
+        for (let i = 0; i < this.files.length; i++) {
+            text += "\"" + i + "\"" + ": \"" + this.files[i].webkitRelativePath + "\", ";
+        }
+        text = text.substring(0, text.length-2);
+        text += "}"
+
+        console.log(text);
+
+        jQuery.ajax({
+            dataType:"json",
+            data: JSON.parse(text),
+            type: "POST", 
+            url: "/chooseMode/", 
+            success: function(response) {
+                console.log(response);
+            }
+        });
+    }
+
+    
+</script>
 {% endblock %}
